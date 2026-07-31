@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Portfolio | Digital & AI Solutions</title>
+  <style>
+    :root{
+      --accent:#007BFF;
+      --dark:#111827;
+      --text:#374151;
+      --light:#ffffff;
+      --bg:#f8fafc;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:16px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:var(--light);
+      line-height:1.6;
+    }
+
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
+
+    .container{
+      width:min(1200px, 92%);
+      margin:auto;
+    }
+
+    /* Header */
+    header{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(8px);
+      box-shadow:0 2px 12px rgba(0,0,0,.05);
+      z-index:1000;
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 0;
+    }
+
+    .logo{
+      font-size:1.5rem;
+      font-weight:700;
+      color:var(--dark);
+    }
+
+    .logo span{color:var(--accent);}
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:28px;
+    }
+
+    nav a{
+      font-weight:600;
+      transition:.3s;
+    }
+
+    nav a:hover{color:var(--accent);}
+
+    /* Hero */
+    .hero{
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:white;
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(rgba(17,24,39,.65), rgba(17,24,39,.65)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80")
+        center/cover no-repeat;
+    }
+
+    .hero-content{
+      max-width:800px;
+      padding:20px;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero h1{
+      font-size:clamp(2.5rem,5vw,4rem);
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      font-size:1.2rem;
+      margin-bottom:32px;
+      opacity:.95;
+    }
+
+    .btn{
+      display:inline-block;
+      background:var(--accent);
+      color:white;
+      padding:14px 34px;
+      border-radius:999px;
+      font-weight:700;
+      transition:.35s;
+      box-shadow:0 12px 24px rgba(0,123,255,.25);
+    }
+
+    .btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 16px 32px rgba(0,123,255,.35);
+    }
+
+    /* Sections */
+    section{padding:90px 0;}
+
+    .section-title{
+      text-align:center;
+      margin-bottom:18px;
+      font-size:2.2rem;
+      color:var(--dark);
+    }
+
+    .section-subtitle{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto 50px;
+      color:#6b7280;
+    }
+
+    /* Services */
+    .services{
+      background:var(--bg);
+    }
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+
+    .service-card{
+      background:white;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      text-align:center;
+      transition:.35s;
+    }
+
+    .service-card:hover{
+      transform:translateY(-8px);
+    }
+
+    .icon{
+      width:70px;
+      height:70px;
+      margin:0 auto 18px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      background:rgba(0,123,255,.08);
+      color:var(--accent);
+      font-size:1.9rem;
+      font-weight:700;
+    }
+
+    .service-card h3{
+      color:var(--dark);
+      margin-bottom:10px;
+    }
+
+    /* Portfolio */
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:22px;
+    }
+
+    .portfolio-item{
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+
+    .portfolio-item img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+      transition:transform .5s ease;
+    }
+
+    .portfolio-overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,123,255,.88);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      opacity:0;
+      transition:.35s;
+      padding:20px;
+    }
+
+    .portfolio-item:hover img{
+      transform:scale(1.08);
+    }
+
+    .portfolio-item:hover .portfolio-overlay{
+      opacity:1;
+    }
+
+    /* About */
+    .about{
+      background:var(--bg);
+    }
+
+    .about-content{
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .about-photo{
+      width:320px;
+      height:320px;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .about-text h3{
+      color:var(--dark);
+      margin-bottom:14px;
+      font-size:1.8rem;
+    }
+
+    .highlights{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(140px,1fr));
+      gap:16px;
+      margin-top:26px;
+    }
+
+    .highlight{
+      background:white;
+      padding:18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .highlight strong{
+      display:block;
+      color:var(--accent);
+      font-size:1.3rem;
+    }
+
+    /* Testimonials */
+    .testimonial-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:24px;
+    }
+
+    .testimonial{
+      background:white;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+      position:relative;
+    }
+
+    .testimonial::before{
+      content:"★ ★ ★ ★ ★";
+      color:#f59e0b;
+      display:block;
+      margin-bottom:16px;
+      letter-spacing:2px;
+    }
+
+    .testimonial h4{
+      margin-top:18px;
+      color:var(--dark);
+    }
+
+    /* Contact */
+    .contact{
+      background:var(--bg);
+    }
+
+    .contact-wrapper{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:36px;
+      align-items:start;
+    }
+
+    .contact-form{
+      background:white;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:14px 16px;
+      margin-bottom:16px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      font-size:1rem;
+      transition:.25s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus{
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 4px rgba(0,123,255,.12);
+    }
+
+    .contact-form textarea{
+      resize:vertical;
+      min-height:140px;
+    }
+
+    .contact-info{
+      background:white;
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:18px;
+    }
+
+    .info-item{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    .info-icon{
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:rgba(0,123,255,.08);
+      color:var(--accent);
+      font-weight:700;
+      flex-shrink:0;
+    }
+
+    .socials{
+      display:flex;
+      gap:14px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .socials a{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      transition:.3s;
+      font-weight:700;
+    }
+
+    .socials a:hover{
+      transform:translateY(-4px) scale(1.05);
+    }
+
+    /* Footer */
+    footer{
+      background:var(--dark);
+      color:#d1d5db;
+      padding:34px 0;
+    }
+
+    .footer-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links a:hover{
+      color:white;
+    }
+
+    /* Animations */
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(28px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      nav ul{
+        gap:18px;
+        font-size:.95rem;
+      }
+
+      .about-content,
+      .contact-wrapper{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .about-photo{
+        margin:auto;
+      }
+
+      .info-item{
+        justify-content:center;
+        text-align:left;
+      }
+    }
+
+    @media (max-width:700px){
+      .nav{
+        flex-direction:column;
+        gap:14px;
+      }
+
+      nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+
+      .hero{
+        padding-top:120px;
+      }
+
+      .hero p{
+        font-size:1rem;
+      }
+
+      .highlights{
+        grid-template-columns:1fr;
+      }
+
+      .footer-content{
+        flex-direction:column;
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <div class="logo">Monica <span>Creative</span></div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Creative Digital Solutions Powered by AI & Strategy</h1>
+      <p>
+        I help brands grow through social media management, AI-generated video content,
+        stunning visuals, high-performing websites, and data-driven marketing strategies.
+      </p>
+      <a href="#contact" class="btn">Let’s Work Together</a>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <p class="section-subtitle">
+        End-to-end digital solutions combining creativity, technology, and performance.
+      </p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">SM</div>
+          <h3>Social Media Management</h3>
+          <p>Content planning, posting, engagement, and growth strategies for brands.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">AI</div>
+          <h3>AI Video Creation</h3>
+          <p>Professional AI-generated videos for marketing, reels, ads, and storytelling.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">GD</div>
+          <h3>Graphic Design</h3>
+          <p>Eye-catching social posts, banners, brochures, and promotional creatives.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">WEB</div>
+          <h3>Website Development</h3>
+          <p>Responsive, modern websites designed to convert visitors into customers.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">LOGO</div>
+          <h3>Logo Creation</h3>
+          <p>Unique brand identities that make your business memorable and professional.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">PH</div>
+          <h3>Product Photography</h3>
+          <p>High-quality product images optimized for e-commerce and social media.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">VID</div>
+          <h3>Product Videography</h3>
+          <p>Engaging product videos that increase trust and improve conversions.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="icon">ADS</div>
+          <h3>Performance Marketing</h3>
+          <p>ROI-focused advertising campaigns across Meta, Google, and other platforms.</p>
+        </div>
+
+        
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-subtitle">
+        A glimpse of projects spanning branding, web design, social media, and visual content.
+      </p>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Social Media Campaign">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>Social Media Campaign</h3>
+              <p>Content strategy &amp; engagement growth</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="Website Development">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>Business Website</h3>
+              <p>Responsive design &amp; SEO optimization</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=80" alt="Brand Identity">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>Brand Identity</h3>
+              <p>Logo &amp; visual branding package</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="AI Video Project">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>AI Video Project</h3>
+              <p>Automated content creation workflow</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Marketing Campaign">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>Marketing Campaign</h3>
+              <p>Performance ads &amp; lead generation</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Product Photography">
+          <div class="portfolio-overlay">
+            <div>
+              <h3>Product Photography</h3>
+              <p>E-commerce ready visual content</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">
+        Passionate about building brands that stand out in the digital world.
+      </p>
+
+      <div class="about-content">
+        <div class="about-photo">
+          <img src="https://github.com/ritikaagarwalit33/monica.github.io/blob/main/monica.jpeg?auto=format&fit=crop&w=900&q=80" alt="Profile Photo">
+        </div>
+
+        <div class="about-text">
+          <h3>Hi, I’m Monica</h3>
+          <p>
+            I’m a creative professional specializing in social media management, AI-powered content creation,
+            branding, website development, and digital marketing. My goal is to help businesses establish a
+            strong online presence through a blend of creativity, strategy, and technology.
+          </p>
+
+          <p style="margin-top:16px;">
+            Whether you’re launching a new brand, scaling an existing business, or looking for high-quality
+            visual content, I focus on delivering work that is not only visually appealing but also results-driven.
+          </p>
+
+          <div class="highlights">
+            <div class="highlight">
+              <strong>100+</strong>
+              Projects Completed
+            </div>
+            <div class="highlight">
+              <strong>10+</strong>
+              Years of Experience
+            </div>
+            <div class="highlight">
+              <strong>Creative</strong>
+              Brand-Focused Approach
+            </div>
+            <div class="highlight">
+              <strong>AI + Marketing</strong>
+              Modern Growth Strategies
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Clients Say</h2>
+      <p class="section-subtitle">
+        Feedback from businesses and entrepreneurs I’ve had the pleasure to work with.
+      </p>
+
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <p>
+            “The social media strategy completely transformed our online presence. Engagement increased significantly
+            within just a few weeks.”
+          </p>
+          <h4>— Priya Sharma, Boutique Owner</h4>
+        </div>
+
+        <div class="testimonial">
+          <p>
+            “Our new website looks modern, loads fast, and has already started generating quality leads. Highly recommended!”
+          </p>
+          <h4>— Amit Verma, Business Consultant</h4>
+        </div>
+
+        <div class="testimonial">
+          <p>
+            “The AI videos and product visuals were outstanding. They gave our brand a premium and professional feel.”
+          </p>
+          <h4>— Neha Gupta, E-commerce Seller</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+-->
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Let’s Connect</h2>
+      <p class="section-subtitle">
+        Ready to grow your brand? Send a message and let’s discuss your project.
+      </p>
+
+      <div class="contact-wrapper">
+        <div class="contact-form">
+          <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Subject">
+            <textarea placeholder="Tell me about your project"></textarea>
+            <button type="submit" class="btn" style="border:none;cursor:pointer;">Send Message</button>
+          </form>
+        </div>
+
+        <div class="contact-info">
+          <div class="info-item">
+            <div class="info-icon">@</div>
+            <div>
+              <strong>Email</strong>
+              <p>monicashyamsukha@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">☎</div>
+            <div>
+              <strong>Phone</strong>
+              <p>+91 73004 32791</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">⌂</div>
+            <div>
+              <strong>Location</strong>
+              <p>Kolkata, India</p>
+            </div>
+          </div>
+<!--
+          <div>
+            <strong>Follow Me</strong>
+            <div class="socials">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="LinkedIn">IN</a>
+              <a href="#" aria-label="Facebook">FB</a>
+              <a href="#" aria-label="YouTube">YT</a>
+            </div>
+          </div>
+-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <p>&copy; 2026 Monica Creative. All rights reserved.</p>
+
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+<!--
+      <div class="footer-links">
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Facebook</a>
+      </div>
+-->
+    </div>
+  </footer>
+
+</body>
+</html>
